@@ -1,0 +1,202 @@
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Exercicio5 - INSERIR, LISTAR, EXCLUIR E EDITAR</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+     	<script type="text/javascript" src="jquery.js" ></script>
+
+  </head>
+    
+    
+    <script >      
+          
+       var tbpessoas  = localStorage.getItem("tbpessoas");
+	 
+	       if(tbpessoas == null) 
+	     	tbpessoas= [];
+	else
+		tbpessoas= JSON.parse(tbpessoas);
+      
+      
+      
+		
+			
+			
+		
+	function inserir() {
+        var pessoa = JSON.stringify({
+            vNome : $("#nome").val(),
+           vSobrenome : $("#sobrenome").val(),
+             vSenha :$("#senha").val(),
+             vNasc : $("#datanasc").val(),
+             vTelefone : $("#tel").val(),
+             vEstado : $("#estado").val(),
+             vCidade : $("#cidade").val(),
+             vEmail : $("#email").val(),
+             vRG : $("#rg").val(),
+             vCPF : $("#cpf").val(),
+             vVeiculo : $("#veiculo").val()
+              }); 
+            tbpessoas.push(pessoa);
+            localStorage.setItem("tbpessoas", JSON.stringify(tbpessoas));
+		alert("Registro adicionado.");
+      
+            
+    }
+     
+		 function Excluir(){
+	
+			localStorage.removeItem("tbpessoas");
+			alert("Registro excluído.");
+			tbContatos  = localStorage.getItem("tbpessoas");
+		}
+            
+            
+     function Listar(){
+		html="";
+		if(tbpessoas!=null)
+		for(i=0;i<tbpessoas.length;i++){
+	         pessoa = JSON.parse(tbpessoas[i]);
+			 
+			 html = html + "<br>" +pessoa.vNome+"  "+pessoa.vSobrenome+"  "+pessoa.vSenha+"  "+pessoa.vNasc+"  "+pessoa.vTelefone+"  "+pessoa.vEstado+"  "+pessoa.vCidade+"  "+pessoa.vEmail+"  "+pessoa.vRG+"  "+pessoa.vCPF+"  "+pessoa.vVeiculo;
+		}
+		
+		$("#listaUsuarios").html(html);
+		
+		
+	}		
+		
+		
+	
+	</script>
+  <body>
+  <fieldset>
+	<legend>Cadastro</legend>
+    <form action=" ">
+     	<fieldset>
+          <legend>Dados Pessoais</legend>
+          <p><br>
+          <label for="nome">Nome:<br></label><input type="text" id="nome"/>
+          </p>
+          <p><br>
+          <label for="sobrenome">Sobrenome:<br></label><input type="text" id="sobrenome"/>
+          </p>
+          <p><br>
+          <label for="senha">Senha:<br></label><input type="password" id="senha"/>
+          </p>
+          <p><br>
+          <label for="datanasc">Data de nascimento:<br></label><input type="date" id="datanasc"/>
+          </p>
+          <p><br>
+          <label for="tel">Telefone:<br></label><input type="text" id="tel"/>
+          </p>
+      <p>Estado:<br>
+        <select name="estado" id="estado">
+        <optgroup label="Selecione o Estado"> 
+		<option value="ac">Acre</option> 
+		<option value="al">Alagoas</option> 
+		<option value="am">Amazonas</option> 
+		<option value="ap">Amapá</option> 
+		<option value="ba">Bahia</option> 
+		<option value="ce">Ceará</option> 
+		<option value="df">Distrito Federal</option> 
+		<option value="es">Espírito Santo</option> 
+		<option value="go">Goiás</option> 
+		<option value="ma">Maranhão</option> 
+		<option value="mt">Mato Grosso</option> 
+		<option value="ms">Mato Grosso do Sul</option> 
+		<option value="mg">Minas Gerais</option> 
+		<option value="pa">Pará</option> 
+		<option value="pb">Paraíba</option> 
+		<option value="pr">Paraná</option> 
+		<option value="pe">Pernambuco</option> 
+		<option value="pi">Piauí</option> 
+		<option value="rj">Rio de Janeiro</option> 
+		<option value="rn">Rio Grande do Norte</option> 
+		<option value="ro">Rondônia</option> 
+		<option value="rs">Rio Grande do Sul</option> 
+		<option value="rr">Roraima</option> 
+		<option value="sc">Santa Catarina</option> 
+		<option value="se">Sergipe</option> 
+		<option value="sp">São Paulo</option> 
+		<option value="to">Tocantins</option> 
+        </optgroup>
+       </select>
+      </p>
+      <p><br>
+      <label for="cidade">Cidade:<br></label><input type="text" id="cidade"/>
+      </p>
+      <p><br>
+      <label for="email">Email:<br></label><input type="text" id="email"/>
+      </p>
+      <fieldset>
+      <legend>Documentos</legend>
+      <p><br>
+      <label for="rg">RG:<br></label><input type="text" id="rg"/>
+      </p>
+      <p><br>
+      <label for="cpf">CPF:<br></label><input type="text" id="cpf"/>
+      </p>
+      </fieldset>
+       <fieldset>
+        <legend>Sexo</legend>
+           <p>
+        <br><input type="radio" name="sexo" value="masculino" checked="checked" id="masc">Masculino
+        <input type="radio" name="sexo" value="feminino" id="fem">Feminino
+      </p><br>
+      </fieldset><br>
+       <fieldset>
+        <legend>Outros dados</legend>
+        <fieldset><br>
+        <legend>Area de interesse</legend>
+      <p>
+        <input type="checkbox" name="interesse" value="suporte" id="suporte">Suporte<br>
+        <input type="checkbox" name="interesse" value="desenvolvimento" id="desenvolvimento">Desenvolvimento<br>
+        <input type="checkbox" name="interesse" value="analise" id="analise">Analise<br>
+        <input type="checkbox" name="interesse" value="outros" id="outros">Outros
+      </p>
+      </fieldset>
+      <p>Seus interesses:<br>
+        <textarea name="mensagem" rows="4" cols="50" id="mensagem">Seus interesses aqui!</textarea>
+      </p>
+      <p>Meio de Transporte:
+        <select name="veiculo" id="veiculo">
+        <optgroup label="Próprio">
+          <option value="carro">Automóvel</option>
+          <option value="bicicleta">Bicicleta</option>
+          <option value="motocicleta">Motocicleta</option>
+          </optgroup>
+          <optgroup label="Coletivo">
+          <option value="onibus">Ônibus</option>
+          <option value="van">Van</option>
+          </optgroup>
+        </select>
+      </p>
+      <fieldset>
+        <legend>Upload Foto</legend>
+        <p>Sua foto:<br>
+        <input name="foto" type="file" value="Carregue sua foto!" id="foto">
+        </p>
+        </fieldset>
+          <p>
+            <input type="button" value="Inserir" id="btInserir" onclick="inserir()"/>
+               <input type="button" value="Listar" id="btnListar" onclick="Listar()"/>
+            <input type="reset" value="Limpar">
+          </p>
+	</fieldset>
+	</form>
+</fieldset> 
+    
+	<fieldset>
+  		<legend>LISTA DE CADASTRADOS</legend>   
+	 <br><br>
+	<div id="listaUsuarios">
+
+	</div>
+	</fieldset> 
+</body>
+</html>
+
+
+  

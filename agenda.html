@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agenda Telefonica</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+     	<script type="text/javascript" src="jquery.js" ></script>
+
+
+</head>
+<script>
+    
+    var tbContatos  = localStorage.getItem("tbContatos");
+	 
+	if(tbContatos == null) 
+		tbContatos = [];
+	else
+		tbContatos= JSON.parse(tbContatos);
+		
+    
+
+    function Cadastrar(){
+		var contato = JSON.stringify({
+        Nome     : $("#txtNome").val(),
+		Telefone : $("#txtTelefone").val(),
+		Email    : $("#txtEmail").val()
+		});
+		
+		tbContatos.push(contato);
+		localStorage.setItem("tbContatos", JSON.stringify(tbContatos));
+		alert("Registro adicionado.");
+	}
+        
+        function Excluir(){
+	
+			localStorage.removeItem("tbContatos");
+			alert("Registro excluído.");
+			tbContatos  = localStorage.getItem("tbContatos");
+		}
+            
+            
+     function Listar(){
+		html="";
+		if(tbContatos!=null)
+		for(i=0;i<tbContatos.length;i++){
+	         contato = JSON.parse(tbContatos[i]);
+			 
+			 html = html + "<br>" + contato.Nome;
+		}
+		
+		$("#tblListar").html(html);
+		
+		
+	}		
+    </script>
+    
+    
+    
+    
+<body>
+	<form id="frmCadastro" method="post">
+		<table>
+            <th> Agenda Telefonica</th>
+            
+            <tr>
+            <td> <label for="txtNome">Nome:</label></td>	
+			<td> <input type="text" id="txtNome"/></td>	
+			</tr>
+            
+             <tr>
+            <td><label for="txtTelefone">Telefone:</label></td>	
+			<td>
+				<input type="text" id="txtTelefone"/></td>	
+			</tr>
+            
+             <tr>
+            <td> 
+				<label for="txtEmail">Email:</label></td>	
+			<td> <input type="text" id="txtEmail"/></td>	
+			</tr>
+				
+			  <tr>
+         <td> <input type="button" value="Cadastrar" id="btnCadastrar" onclick="Cadastrar()"/>
+          <input type="button" value="Listar" id="btnListar" onclick="Listar()"/>
+          <input type="button" value="Excluir" id="btnExcluir" onclick="Excluir()"/>
+             </td>
+			</tr>
+				
+			
+				
+		
+				
+		
+        </table>
+    </form>
+    
+    <br><br>
+	<div id="tblListar">
+
+	</div>
+    
+   
+    
+    
+</body>
+</html>
